@@ -398,3 +398,9 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+### Additions to base gitignore
+
+#VS-specific files
+*.sln
+*.csproj
