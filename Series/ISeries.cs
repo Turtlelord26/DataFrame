@@ -1,6 +1,8 @@
-﻿namespace Series
+﻿using Index.IndexLabels;
+
+namespace Series
 {
-    public interface ISeries
+    public interface ISeries<T> where T : IIndexLabel
     {
         
     }
