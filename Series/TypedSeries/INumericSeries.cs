@@ -1,4 +1,5 @@
-﻿using Index.IndexLabels;
+﻿using Index;
+using Index.IndexLabels;
 using Series.Utilities.Parallelization;
 
 namespace Series.TypedSeries
@@ -152,20 +153,38 @@ namespace Series.TypedSeries
         public static IBoolSeries<T> Map(INumericSeries<T> source, Func<double, bool> operation, string opString)
         {
             List<bool> resultData = Map(source, operation);
-            return SeriesFactory.MakeBoolSeries(source.Index, resultData, $"{source.Name}_{opString}");
+            return source.MakeSeriesPreservingIndex(source.Index, resultData, $"{source.Name}_{opString}");
         }
 
         public static ICategoricalSeries<T> Map(INumericSeries<T> source, Func<double, int> operation, string opString)
         {
             List<int> resultData = Map(source, operation);
-            return SeriesFactory.MakeCategoricalSeries(source.Index, resultData, $"{source.Name}_{opString}");
+            return source.MakeSeriesPreservingIndex(source.Index, resultData, $"{source.Name}_{opString}");
         }
 
         public static INumericSeries<T> Map(INumericSeries<T> source, Func<double, double> operation, string opString)
         {
             List<double> resultData = Map(source, operation);
-            return SeriesFactory.MakeNumericSeries(source.Index, resultData, $"{source.Name}_{opString}");
+            return source.MakeSeriesPreservingIndex(source.Index, resultData, $"{source.Name}_{opString}");
         }
+
+        public static INumericSeries<T> Map2(INumericSeries<T> source1, INumericSeries<T> source2, Func<double, double, double> operation, string opString)
+        {
+            List<double> resultData = Map2(source1, source2, operation);
+            return source1.MakeSeriesPreservingIndex(source1.Index, resultData, $"{source1.Name}_{opString}_{source2.Name}");
+        }
+
+        public static IBoolSeries<T> Map2(INumericSeries<T> source1, INumericSeries<T> source2, Func<double, double, bool> operation, string opString)
+        {
+            List<bool> resultData = Map2(source1, source2, operation);
+            return source1.MakeSeriesPreservingIndex(source1.Index, resultData, $"{source1.Name}_{opString}_{source2.Name}");
+        }
+
+        protected IBoolSeries<T> MakeSeriesPreservingIndex(IIndex<T> index, IList<bool> data, string seriesName);
+
+        protected ICategoricalSeries<T> MakeSeriesPreservingIndex(IIndex<T> index, IList<int> data, string seriesName);
+
+        protected INumericSeries<T> MakeSeriesPreservingIndex(IIndex<T> index, IList<double> data, string seriesName);
 
         private static List<R> Map<R>(INumericSeries<T> source, Func<double, R> operation)
         {
@@ -177,18 +196,6 @@ namespace Series.TypedSeries
             }
             ParallelizationUtilities.ParallelizeIfEfficient(apply, dataLength);
             return resultData;
-        }
-
-        public static INumericSeries<T> Map2(INumericSeries<T> source1, INumericSeries<T> source2, Func<double, double, double> operation, string opString)
-        {
-            List<double> resultData = Map2(source1, source2, operation);
-            return SeriesFactory.MakeNumericSeries(source1.Index, resultData, $"{source1.Name}_{opString}_{source2.Name}");
-        }
-
-        public static IBoolSeries<T> Map2(INumericSeries<T> source1, INumericSeries<T> source2, Func<double, double, bool> operation, string opString)
-        {
-            List<bool> resultData = Map2(source1, source2, operation);
-            return SeriesFactory.MakeBoolSeries(source1.Index, resultData, $"{source1.Name}_{opString}_{source2.Name}");
         }
 
         private static List<R> Map2<R>(INumericSeries<T> source1, INumericSeries<T> source2, Func<double, double, R> operation)

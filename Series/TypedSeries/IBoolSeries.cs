@@ -1,4 +1,5 @@
-﻿using Index.IndexLabels;
+﻿using Index;
+using Index.IndexLabels;
 using Series.Utilities.Parallelization;
 
 namespace Series.TypedSeries
@@ -121,7 +122,7 @@ namespace Series.TypedSeries
                 resultData[i] = operation(source[i]);
             }
             ParallelizationUtilities.ParallelizeIfEfficient(apply, dataLength);
-            return SeriesFactory.MakeBoolSeries(source.Index, resultData, $"{source.Name} {opString}");
+            return source.MakeSeriesPreservingIndex(source.Index, resultData, $"{source.Name} {opString}");
         }
 
         public static IBoolSeries<T> Map2(IBoolSeries<T> source1, IBoolSeries<T> source2, Func<bool, bool, bool> operation, string opString)
@@ -142,7 +143,9 @@ namespace Series.TypedSeries
                 resultData[i] = operation(source1[i], source2[i]);
             }
             ParallelizationUtilities.ParallelizeIfEfficient(apply, dataLength);
-            return SeriesFactory.MakeBoolSeries(source1.Index, resultData, $"{source1.Name} {opString} {source2.Name}");
+            return source1.MakeSeriesPreservingIndex(source1.Index, resultData, $"{source1.Name} {opString} {source2.Name}");
         }
+
+        protected IBoolSeries<T> MakeSeriesPreservingIndex(IIndex<T> index, IList<bool> data, string seriesName);
     }
 }
