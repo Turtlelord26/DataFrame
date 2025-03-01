@@ -7,6 +7,6 @@ namespace DataFrame.SeriesCollection
     {
         //Note - where applicable, indexers preserve order from the argument list, not necessarily the object being indexed. Additionally, ranges are max exclusive.
         public double this[int rowNumber, string seriesName] { get; set; }
-        public double this[IIndexLabel rowName, string seriesName] { get; set; }
+        public double this[T rowIndex, string seriesName] { get; set; }
     }
 }
