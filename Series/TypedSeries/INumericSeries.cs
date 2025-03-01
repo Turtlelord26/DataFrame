@@ -1,6 +1,5 @@
 ﻿using Index.IndexLabels;
 using Series.Utilities.Parallelization;
-using System.Diagnostics;
 
 namespace Series.TypedSeries
 {
