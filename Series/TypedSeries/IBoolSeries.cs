@@ -72,7 +72,34 @@ namespace Series.TypedSeries
 
         public static IBoolSeries<T> operator !(IBoolSeries<T> series) => ElementwiseNot(series);
 
+        //due to language constraints we cannot define custom operators for nand and nor
+
+        public static IBoolSeries<T> ElementwiseNand(IBoolSeries<T> series1, bool boolean)
+        {
+            bool nand(bool b) => !(b & boolean);
+            return Map(series1, nand, $"&_{boolean}");
+        }
+
+        public static IBoolSeries<T> ElementwiseNand(IBoolSeries<T> series1, IBoolSeries<T> series2)
+        {
+            static bool nand(bool b1, bool b2) => !(b1 & b2);
+            return Map2(series1, series2, nand, "&");
+        }
+
+        public static IBoolSeries<T> ElementwiseNor(IBoolSeries<T> series1, bool boolean)
+        {
+            bool nor(bool b) => !(b & boolean);
+            return Map(series1, nor, $"&_{boolean}");
+        }
+
+        public static IBoolSeries<T> ElementwiseNor(IBoolSeries<T> series1, IBoolSeries<T> series2)
+        {
+            static bool nor(bool b1, bool b2) => !(b1 & b2);
+            return Map2(series1, series2, nor, "&");
+        }
+
         //due to language constraints we cannot overload equality operators == and != to perform element-wise operation.
+
         public static IBoolSeries<T> ElementwiseEquals(IBoolSeries<T> series1, IBoolSeries<T> series2)
         {
             static bool eq(bool n1, bool n2) => n1 == n2;
