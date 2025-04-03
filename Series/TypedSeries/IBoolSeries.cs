@@ -137,37 +137,37 @@ namespace Series.TypedSeries
         public static IBoolSeries<T> Map(IBoolSeries<T> source, Func<bool, bool> operation, string resultName)
         {
             List<bool> resultData = Map(source, operation);
-            return source.MakeSeriesPreservingIndex(source.Index, resultData, resultName);
+            return source.MakeSeriesDeepCopyingIndex(source.Index, resultData, resultName);
         }
 
         public static ICategoricalSeries<T> Map(IBoolSeries<T> source, Func<bool, int> operation, string resultName)
         {
             List<int> resultData = Map(source, operation);
-            return source.MakeSeriesPreservingIndex(source.Index, resultData, resultName);
+            return source.MakeSeriesDeepCopyingIndex(source.Index, resultData, resultName);
         }
 
         public static INumericSeries<T> Map(IBoolSeries<T> source, Func<bool, double> operation, string resultName)
         {
             List<double> resultData = Map(source, operation);
-            return source.MakeSeriesPreservingIndex(source.Index, resultData, resultName);
+            return source.MakeSeriesDeepCopyingIndex(source.Index, resultData, resultName);
         }
 
         public static IStringSeries<T> Map(IBoolSeries<T> source, Func<bool, string> operation, string resultName)
         {
             List<string> resultData = Map(source, operation);
-            return source.MakeSeriesPreservingIndex(source.Index, resultData, resultName);
+            return source.MakeSeriesDeepCopyingIndex(source.Index, resultData, resultName);
         }
 
         public static ITimeSeries<T> Map(IBoolSeries<T> source, Func<bool, DateTime> operation, string resultName)
         {
             List<DateTime> resultData = Map(source, operation);
-            return source.MakeSeriesPreservingIndex(source.Index, resultData, resultName);
+            return source.MakeSeriesDeepCopyingIndex(source.Index, resultData, resultName);
         }
 
         public static IBoolSeries<T> Map2(IBoolSeries<T> source1, IBoolSeries<T> source2, Func<bool, bool, bool> operation, string resultName)
         {
             List<bool> resultData = Map2(source1, source2, operation);
-            return source1.MakeSeriesPreservingIndex(source1.Index, resultData, resultName);
+            return source1.MakeSeriesDeepCopyingIndex(source1.Index, resultData, resultName);
         }
 
         private static List<R> Map<R>(IBoolSeries<T> source, Func<bool, R> operation)

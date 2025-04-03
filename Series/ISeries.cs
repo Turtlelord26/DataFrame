@@ -19,10 +19,10 @@ namespace Series
         //Series Builders
         //Used by typed series to support series creation through function application. For maximum versatility, each typed series supports transformation to all others.
 
-        internal IBoolSeries<T> MakeSeriesPreservingIndex(IIndex<T> index, IList<bool> data, string seriesName);
-        internal ICategoricalSeries<T> MakeSeriesPreservingIndex(IIndex<T> index, IList<int> data, string seriesName);
-        internal INumericSeries<T> MakeSeriesPreservingIndex(IIndex<T> index, IList<double> data, string seriesName);
-        internal IStringSeries<T> MakeSeriesPreservingIndex(IIndex<T> index, IList<string> data, string seriesName);
-        internal ITimeSeries<T> MakeSeriesPreservingIndex(IIndex<T> index, IList<DateTime> data, string seriesName);
+        internal IBoolSeries<T> MakeSeriesDeepCopyingIndex(IIndex<T> index, IList<bool> data, string seriesName);
+        internal ICategoricalSeries<T> MakeSeriesDeepCopyingIndex(IIndex<T> index, IList<int> data, string seriesName);
+        internal INumericSeries<T> MakeSeriesDeepCopyingIndex(IIndex<T> index, IList<double> data, string seriesName);
+        internal IStringSeries<T> MakeSeriesDeepCopyingIndex(IIndex<T> index, IList<string> data, string seriesName);
+        internal ITimeSeries<T> MakeSeriesDeepCopyingIndex(IIndex<T> index, IList<DateTime> data, string seriesName);
     }
 }
