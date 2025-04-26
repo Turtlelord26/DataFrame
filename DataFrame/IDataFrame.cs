@@ -1,27 +1,33 @@
 ﻿using DataFrame.SeriesCollection;
 using Index;
-using Index.IndexLabels;
 using Series.TypedSeries;
 
 namespace DataFrame
 {
-    public interface IDataFrame<T> where T : IIndexLabel
+    public interface IDataFrame<TIndex>
     {
-        public IIndex<T> RowIndex { get; set; }
+        #region Indexers
+        public IIndex<TIndex> RowIndex { get; set; }
 
-        public INumericSeriesCollection<T> Numeric { get; }
-        public ICategoricalSeriesCollection<T> Categorical { get; }
-        public IStringSeriesCollection<T> Descriptive { get; }
-        public ITimeSeriesCollection<T> Temporal { get; }
-        public IBoolSeriesCollection<T> Binary { get; }
+        public INumericSeriesCollection<TIndex> Numeric { get; }
+        public ICategoricalSeriesCollection<TIndex> Categorical { get; }
+        public IStringSeriesCollection<TIndex> Descriptive { get; }
+        public ITimeSeriesCollection<TIndex> Temporal { get; }
+        public IBoolSeriesCollection<TIndex> Binary { get; }
 
-        public IDataFrame<T> this[int rowNumber] { get; }
-        public IDataFrame<T> this[T rowIndex] { get; }
-        public IDataFrame<T> this[Range rowNumbers] { get; }
-        public IDataFrame<T> this[IEnumerable<int> rowNumbers] { get; }
-        public IDataFrame<T> this[IEnumerable<T> rowIndices] { get; }
-        public IDataFrame<T> this[IBoolSeries<T> rowIndexedFilter] { get; }
-        public IDataFrame<T> this[IList<bool> rowNumberedFilter] { get; }
-        public IDataFrame<T> this[Func<T, bool> rowIndexFilter] { get; }
+        public IDataFrame<TIndex> this[int rowNumber] { get; }
+        public IDataFrame<TIndex> this[TIndex rowIndex] { get; }
+        public IDataFrame<TIndex> this[Range rowNumbers] { get; }
+        public IDataFrame<TIndex> this[IEnumerable<TIndex> rowIndices] { get; }
+        public IDataFrame<TIndex> this[IBoolSeries<TIndex> rowIndexedFilter] { get; }
+        public IDataFrame<TIndex> this[IList<bool> rowNumberedFilter] { get; }
+        public IDataFrame<TIndex> this[Func<TIndex, bool> rowIndexFilter] { get; }
+        public IDataFrame<TIndex> this[Func<IDataFrame<TIndex>, IBoolSeries<TIndex>> funcFilter] { get; }
+        #endregion
+
+        #region Other Accessors
+        public IDataFrame<TIndex> AtRow(IEnumerable<int> rowNumbers);
+        public void SetByRow(IEnumerable<int> rowNumbers, IDataFrame<TIndex> rows);
+        #endregion
     }
 }

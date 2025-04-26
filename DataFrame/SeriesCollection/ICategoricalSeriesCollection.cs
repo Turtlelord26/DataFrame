@@ -1,12 +1,14 @@
-﻿using Index.IndexLabels;
-using Series.TypedSeries;
+﻿using Series.TypedSeries;
 
 namespace DataFrame.SeriesCollection
 {
-    public interface ICategoricalSeriesCollection<T> : ISeriesCollection<ICategoricalSeries<T>, T> where T : IIndexLabel
+    public interface ICategoricalSeriesCollection<TIndex> : ISeriesCollection<TIndex, int>
     {
-        //Note - where applicable, indexers preserve order from the argument list, not necessarily the object being indexed. Additionally, ranges are max exclusive.
-        public int this[int rowNumber, string seriesName] { get; set; }
-        public int this[T rowIndex, string seriesName] { get; set; }
+        public ICategoricalSeries<TIndex> this[string seriesName] { get; set; }
+
+        public ICategoricalSeriesCollection<TIndex> this[IEnumerable<string> seriesNames] { get; }
+        public ICategoricalSeriesCollection<TIndex> this[IEnumerable<KeyValuePair<string, bool>> seriesNameFilter] { get; }
+        public ICategoricalSeriesCollection<TIndex> this[Func<string, bool> seriesNameFilter] { get; }
+        public ICategoricalSeriesCollection<TIndex> this[Func<ICategoricalSeries<TIndex>, bool> seriesFilter] { get; }
     }
 }
