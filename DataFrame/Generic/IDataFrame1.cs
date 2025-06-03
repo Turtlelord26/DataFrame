@@ -1,11 +1,11 @@
-﻿using DataFrame.SeriesCollection;
-using Index;
-using Series.TypedSeries;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataFrame.SeriesCollection;
+using Index;
+using Series.TypedSeries;
 
 namespace DataFrame.Generic
 {

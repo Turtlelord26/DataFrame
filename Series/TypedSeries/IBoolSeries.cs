@@ -10,7 +10,7 @@ namespace Series.TypedSeries
         public IBoolSeries<TIndex> this[IEnumerable<TIndex> rowIndices] { get; }
         public IBoolSeries<TIndex> this[IBoolSeries<TIndex> rowIndexedFilter] { get; }
         public IBoolSeries<TIndex> this[IList<bool> rowNumberedFilter] { get; }
-        public IBoolSeries<T> this[Func<TIndex, bool> rowIndexFilter] { get; }
+        public IBoolSeries<TIndex> this[Func<TIndex, bool> rowIndexFilter] { get; }
         #endregion
 
         #region Other Accessors

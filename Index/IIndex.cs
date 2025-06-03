@@ -84,7 +84,7 @@
         //Index.insert is implemented above
 
         ////////Index.Reindex requires more understanding
-        
+
         ////////Index.Rename requires more context from MultiIndex implementation
 
         public IIndex<TIndex> Repeat(int n);
