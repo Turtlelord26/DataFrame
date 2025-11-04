@@ -1,23 +1,23 @@
 ﻿namespace Index
 {
-    public interface IIndex<TIndex>
+    public interface IIndex<TIndex1>
     {
         #region Indexers
-        public int this[TIndex indexValue] { get; }
-        public IEnumerable<TIndex> this[Range rowNumbers] { get; set; }
-        public IEnumerable<TIndex> this[IEnumerable<int> rowNumbers] { get; set; }
-        public IEnumerable<int> this[IEnumerable<TIndex> indexValues] { get; set; }
+        public int this[TIndex1 indexValue] { get; }
+        public IEnumerable<TIndex1> this[Range rowNumbers] { get; set; }
+        public IEnumerable<TIndex1> this[IEnumerable<int> rowNumbers] { get; set; }
+        public IEnumerable<int> this[IEnumerable<TIndex1> indexValues] { get; set; }
         #endregion
 
         #region Other Accessors
-        public TIndex AtRow(int rowNumber);
-        public void SetByRow(int rowNumber, TIndex value);
+        public TIndex1 AtRow(int rowNumber);
+        public void SetByRow(int rowNumber, TIndex1 value);
         #endregion
 
         #region List Functions
-        public void Add(TIndex value);
-        public void Insert(int index, TIndex item);
-        public void Remove(TIndex value);
+        public void Add(TIndex1 value);
+        public void Insert(int index, TIndex1 item);
+        public void Remove(TIndex1 value);
         public void RemoveElementAt(int rowNumber);
         #endregion
 
@@ -65,19 +65,19 @@
 
         //Index.argmix, .argmax, min, max are ignored as LINQ provides this functionality with user-supplied comparators, and reimplementing that would be redundant.
 
-        public IIndex<TIndex> Copy(bool deepCopy = true);
+        public IIndex<TIndex1> Copy(bool deepCopy = true);
 
-        public IIndex<TIndex> Drop(int rowNumber);
+        public IIndex<TIndex1> Drop(int rowNumber);
 
-        public IIndex<TIndex> Drop(IEnumerable<int> rowNumbers);
+        public IIndex<TIndex1> Drop(IEnumerable<int> rowNumbers);
 
-        public IIndex<TIndex> DropDuplicates();
+        public IIndex<TIndex1> DropDuplicates();
 
-        public IList<TIndex> Duplicated();
+        public IList<TIndex1> Duplicated();
 
-        public bool Equals(IIndex<TIndex> other);
+        public bool Equals(IIndex<TIndex1> other);
 
-        public (IIndex<TIndex>, IList<TIndex>) Factorize(bool sort = false, bool useNANSentinel = true);
+        public (IIndex<TIndex1>, IList<TIndex1>) Factorize(bool sort = false, bool useNANSentinel = true);
 
         //Index.identical is ignored as a duplicate of equals in a C# context.
 
@@ -87,23 +87,23 @@
 
         ////////Index.Rename requires more context from MultiIndex implementation
 
-        public IIndex<TIndex> Repeat(int n);
+        public IIndex<TIndex1> Repeat(int n);
 
         //Index.Where undesirably overloads with LINQ, and moreover is pretty redundant with LINQ.Select and our own Map method using a simple user-defined conditional replacement function.
 
         //Index.Take also overloads with LINQ and is implemented as Distribute (being the opposite of factorize)
 
-        public IIndex<TIndex> Distribute(IList<TIndex> indices);
-        public IIndex<TIndex> Distribute(IList<TIndex> indices, TIndex fillValue);
+        public IIndex<TIndex1> Distribute(IList<TIndex1> indices);
+        public IIndex<TIndex1> Distribute(IList<TIndex1> indices, TIndex1 fillValue);
 
         //Index.putmask is ignored.
 
-        public IIndex<TIndex> Unique(); //Note to come back here to examine the pandas parameter for this method after figuring out multiindex
+        public IIndex<TIndex1> Unique(); //Note to come back here to examine the pandas parameter for this method after figuring out multiindex
 
         //Index.nunique is implemented as UniqueCount
 
         public int UniqueCount();
 
-        public Dictionary<TIndex, double> ValueCounts(bool normalize = false, bool sort = true, bool ascending = true, bool dropNaN = true); //ignoring the bins parameter for now, it is noted as a convenience with general function Cut
+        public Dictionary<TIndex1, double> ValueCounts(bool normalize = false, bool sort = true, bool ascending = true, bool dropNaN = true); //ignoring the bins parameter for now, it is noted as a convenience with general function Cut
     }
 }

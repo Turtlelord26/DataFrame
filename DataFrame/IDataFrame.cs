@@ -6,9 +6,9 @@ namespace DataFrame
 {
     public interface IDataFrame<TIndex>
     {
-        #region Indexers
         public IIndex<TIndex> RowIndex { get; set; }
 
+        #region Indexers
         public INumericSeriesCollection<TIndex> Numeric { get; }
         public ICategoricalSeriesCollection<TIndex> Categorical { get; }
         public IStringSeriesCollection<TIndex> Descriptive { get; }
@@ -28,6 +28,10 @@ namespace DataFrame
         #region Other Accessors
         public IDataFrame<TIndex> AtRow(IEnumerable<int> rowNumbers);
         public void SetByRow(IEnumerable<int> rowNumbers, IDataFrame<TIndex> rows);
+        #endregion
+
+        #region Properties
+        public int RowCount { get; }
         #endregion
     }
 }
